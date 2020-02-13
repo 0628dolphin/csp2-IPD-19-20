@@ -7,8 +7,8 @@
 ####
 
 team_name = 'E0'
-strategy_name = 'Collude'
-strategy_description = 'Always collude.'
+strategy_name = 'CCB'
+strategy_description = 'Betray every 3rd turn, and collude on the other turns'
     
 def move(my_history, their_history, my_score, their_score):
     '''Make my move based on the history with this player.
@@ -21,6 +21,14 @@ def move(my_history, their_history, my_score, their_score):
     Returns 'c' or 'b' for collude or betray.
     '''
     
-    # This player always colludes.
-    return 'c'
-    
+    #On the first turn they should always collude
+    if len(my_history) == 0:
+        return 'c'
+
+    #On every 3rd turn they should try and betray
+    elif len(my_history)%3 == 0:
+      return 'b'
+
+    #All other turns they should collude
+    else:
+        return 'c'
