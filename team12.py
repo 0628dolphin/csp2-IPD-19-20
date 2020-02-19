@@ -7,7 +7,7 @@
 ####
 
 team_name = 'Prison JM' # Only 10 chars displayed.
-strategy_name = 'Betray, if Colluded'
+strategy_name = 'Betray, if Colluded '
 strategy_description = ' In this algorithm, the player starts by betraying. If the opponents collude, then in the text turn they betray them. Else, in all other cases they collude.'
     
 def move(my_history, their_history, my_score, their_score):
