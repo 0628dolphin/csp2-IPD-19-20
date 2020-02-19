@@ -7,10 +7,13 @@
 ####
 
 team_name = 'E3'
-strategy_name = 'Collude but retaliate'
+strategy_name = 'Collude first 100 rounds unless betrayed. Betray 101st round forward.'
 strategy_description = '''\
-Collude first round. Collude, except in a round after getting 
-a severe punishment.'''
+Betray if ever betrayed.
+If I haven't been betrayed yet, I'll betray starting with the 100th round.
+'''
+
+import random
     
 def move(my_history, their_history, my_score, their_score):
     '''Make my move based on the history with this player.
@@ -22,9 +25,11 @@ def move(my_history, their_history, my_score, their_score):
     
     Returns 'c' or 'b' for collude or betray.
     '''
-    if len(my_history)==0: # It's the first round; collude.
-        return 'c'
-    elif my_history[-1]=='c' and their_history[-1]=='b':
-        return 'b' # Betray if they were severely punished last time,
+    # If the other player has betrayed or this is the last half of the game, 
+    if 'b' in their_history or len(their_history)>100: 
+        return 'c'               # Betray.
     else:
-        return 'c' # otherwise collude.
+        return 'b'         # but 90% of the time collude
+    
+    
+    
