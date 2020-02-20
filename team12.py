@@ -7,9 +7,9 @@
 ####
 
 team_name = 'Prison JM'
-strategy_name = 'Collude first 100 rounds unless betrayed. Betray 101st round forward.'
+strategy_name = 'Collude first 100 if betrayed. Betray 101st round forward.'
 strategy_description = '''\
-Collude if ever betrayed.
+Betray if ever betrayed.
 If I haven't been betrayed yet, I'll betray starting with the 100th round.
 '''
 
@@ -25,8 +25,12 @@ def move(my_history, their_history, my_score, their_score):
     
     Returns 'c' or 'b' for collude or betray.
     '''
-    # If the other player has betrayed or this is the last half of the game, 
-    if 'b' in their_history or len(their_history)>100: 
-        return 'c'               # Betray.
+    # If the other player has betrayed then we will collude 
+    if len(my_history)==0: # It's the first round; betray.
+        return 'b'
+
+    elif 'b' in their_history or len(their_history)>100: 
+        return 'c'               # Collude.
+
     else:
-        return 'b'         # but 90% of the time collude
+        return 'b'         #Betray in all other cases
